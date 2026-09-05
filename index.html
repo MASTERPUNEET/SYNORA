@@ -1,0 +1,2292 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SYNORA</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: white;
+    min-height: 100vh;
+    background: #080b18;
+    transition: background 0.6s ease;
+}
+
+/* =========================
+   QUEST BACKGROUNDS
+========================= */
+
+body.quest1 {
+    background:
+        radial-gradient(circle at 20% 20%, #168cff55, transparent 35%),
+        linear-gradient(135deg, #031b38, #062d52, #020914);
+}
+
+body.quest2 {
+    background:
+        radial-gradient(circle at 80% 20%, #ffd00055, transparent 35%),
+        linear-gradient(135deg, #241800, #473000, #080600);
+}
+
+body.quest3 {
+    background:
+        radial-gradient(circle at 30% 20%, #ff4f4f55, transparent 35%),
+        linear-gradient(135deg, #300505, #5b1111, #090202);
+}
+
+body.quest4 {
+    background:
+        radial-gradient(circle at 70% 20%, #59ff8755, transparent 35%),
+        linear-gradient(135deg, #03240e, #06451b, #020b05);
+}
+
+/* =========================
+   TOP BAR
+========================= */
+
+.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 12px;
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+.top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: 4px;
+}
+
+.stats {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.stat {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 8px 12px;
+    border-radius: 12px;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.container {
+    width: min(1100px, 94%);
+    margin: auto;
+    padding: 20px 0 50px;
+}
+
+.hero {
+    text-align: center;
+    padding: 25px 10px;
+}
+
+.hero h1 {
+    font-size: clamp(42px, 9vw, 85px);
+    margin: 0;
+    letter-spacing: 8px;
+    text-shadow: 0 0 25px rgba(255,255,255,0.3);
+}
+
+.hero p {
+    color: #d7d7e8;
+    font-size: 18px;
+}
+
+.slogan {
+    font-weight: bold;
+    color: #fff;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.card {
+    background: rgba(0,0,0,0.45);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+    backdrop-filter: blur(10px);
+}
+
+.card h2 {
+    margin-top: 0;
+}
+
+/* =========================
+   QUEST BUTTONS
+========================= */
+
+.quest-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 14px;
+}
+
+.quest-btn {
+    min-height: 150px;
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.18);
+    color: white;
+    background: rgba(255,255,255,0.08);
+    cursor: pointer;
+    padding: 18px;
+    text-align: left;
+    transition: 0.25s;
+}
+
+.quest-btn:hover {
+    transform: translateY(-4px);
+    background: rgba(255,255,255,0.15);
+}
+
+.quest-btn.active {
+    border: 2px solid white;
+    box-shadow: 0 0 25px rgba(255,255,255,0.2);
+}
+
+.quest-number {
+    font-size: 13px;
+    opacity: 0.7;
+}
+
+.quest-icon {
+    font-size: 38px;
+    margin: 10px 0;
+}
+
+.quest-title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+button {
+    border: none;
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    color: white;
+    background: #333b61;
+}
+
+button:hover {
+    filter: brightness(1.2);
+}
+
+.primary {
+    background: #2459ff;
+}
+
+.danger {
+    background: #b92b38;
+}
+
+.success {
+    background: #18894c;
+}
+
+.gold {
+    background: #a87800;
+}
+
+input {
+    width: 100%;
+    padding: 13px;
+    border-radius: 10px;
+    border: 1px solid #555;
+    background: #101322;
+    color: white;
+    margin: 7px 0;
+}
+
+/* =========================
+   DETECTION
+========================= */
+
+.signal {
+    text-align: center;
+    padding: 25px;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.07);
+}
+
+.signal-icon {
+    font-size: 55px;
+}
+
+#status {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 10px;
+}
+
+.near {
+    color: #4dff88;
+}
+
+.far {
+    color: #ff6767;
+}
+
+.detected {
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 rgba(255,255,255,0); }
+    50% { box-shadow: 0 0 35px rgba(255,255,255,0.45); }
+    100% { box-shadow: 0 0 0 rgba(255,255,255,0); }
+}
+
+/* =========================
+   MAP
+========================= */
+
+#map {
+    height: 390px;
+    border-radius: 18px;
+    overflow: hidden;
+    margin-top: 15px;
+}
+
+.map-note {
+    color: #ccc;
+    font-size: 13px;
+}
+
+/* =========================
+   STREAK
+========================= */
+
+.streak-box {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px,1fr));
+    gap: 12px;
+}
+
+.big-stat {
+    padding: 18px;
+    text-align: center;
+    border-radius: 15px;
+    background: rgba(255,255,255,0.08);
+}
+
+.big-stat .number {
+    font-size: 32px;
+    font-weight: 900;
+}
+
+/* =========================
+   FREEZE DAYS
+========================= */
+
+.freeze-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.freeze-day {
+    background: #28446d;
+    padding: 8px 11px;
+    border-radius: 10px;
+}
+
+.freeze-day button {
+    padding: 3px 7px;
+    margin: 0 0 0 6px;
+    background: #8b2934;
+}
+
+/* =========================
+   GAME OVER
+========================= */
+
+.game-over {
+    display: none;
+    text-align: center;
+    border: 2px solid #ff4545;
+    background: rgba(100,0,0,0.35);
+}
+
+.game-over h2 {
+    color: #ff5d5d;
+    font-size: 35px;
+}
+
+/* =========================
+   TOAST
+========================= */
+
+#toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #111;
+    border: 1px solid #555;
+    padding: 14px 20px;
+    border-radius: 12px;
+    display: none;
+    z-index: 9999;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px) {
+    .logo {
+        font-size: 22px;
+    }
+
+    .stats {
+        width: 100%;
+    }
+
+    .stat {
+        flex: 1;
+        text-align: center;
+    }
+
+    #map {
+        height: 300px;
+    }
+}
+</style>
+
+<!-- Leaflet map -->
+<link
+rel="stylesheet"
+href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
+
+</head>
+
+<body class="quest1">
+
+<!-- =========================
+     TOP BAR
+========================= -->
+
+<header class="topbar">
+    <div class="top-row">
+
+        <div class="logo">SYNORA</div>
+
+        <div class="stats">
+            <div class="stat">
+                ⭐ XP: <b id="xp">0</b>
+            </div>
+
+            <div class="stat">
+                🔥 Streak: <b id="streak">0</b>
+            </div>
+
+            <div class="stat">
+                👤 <b id="usernameTop">Hunter</b>
+            </div>
+        </div>
+
+    </div>
+</header>
+
+
+<main class="container">
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+    <h1>SYNORA</h1>
+
+    <p class="slogan">
+        DON'T JUST PLAY THE GAME. CHANGE THE WORLD.
+    </p>
+
+    <p>
+        The game doesn't end when you win.<br>
+        The game ends when the world gets better.
+    </p>
+</section>
+
+
+<!-- =========================
+     PROFILE
+========================= -->
+
+<section class="card">
+
+    <h2>👤 Hunter Profile</h2>
+
+    <label>Username</label>
+
+    <input
+        id="usernameInput"
+        type="text"
+        maxlength="20"
+        placeholder="Enter username"
+    >
+
+    <button class="primary" onclick="saveUsername()">
+        CHANGE USERNAME
+    </button>
+
+    <p>
+        Changing your username creates a fresh profile:
+        <b>100 XP + Day 1 streak.</b>
+    </p>
+
+</section>
+
+
+<!-- =========================
+     IOT DEVICE STATUS
+========================= -->
+<section class="card">
+    <h2>📡 IoT Device Connection</h2>
+    <p id="iotStatus">NO CONNECTION TO DEVICE</p>
+    <p>Until the real IoT device is connected, SYNORA will not detect real problems and will not award quest XP.</p>
+</section>
+
+
+<!-- =========================
+     STREAK
+========================= -->
+
+<section class="card">
+
+    <h2>🔥 Streak System</h2>
+
+    <div class="streak-box">
+
+        <div class="big-stat">
+            <div>🔥 Current Streak</div>
+            <div class="number" id="streakBig">0</div>
+            <div>days</div>
+        </div>
+
+        <div class="big-stat">
+            <div>🧊 Freeze Days</div>
+            <div class="number" id="freezeCount">0</div>
+            <div>protected days</div>
+        </div>
+
+        <div class="big-stat">
+            <div>⭐ XP</div>
+            <div class="number" id="xpBig">0</div>
+        </div>
+
+    </div>
+
+    <h3>🧊 Add an Absent Day</h3>
+
+    <p>
+        Enter a day you were absent. That day will be protected,
+        but the next day is a fresh active day.
+    </p>
+
+    <input
+        id="freezeDate"
+        type="date"
+    >
+
+    <button class="primary" onclick="addFreezeDay()">
+        + ADD ABSENT DAY
+    </button>
+
+    <div id="freezeList" class="freeze-list"></div>
+
+</section>
+
+
+<!-- =========================
+     GAME OVER
+========================= -->
+
+<section id="gameOver" class="card game-over">
+
+    <h2>💥 GAME OVER</h2>
+
+    <p>
+        You missed an unprotected active day.
+    </p>
+
+    <p>
+        🔥 Streak became <b>0</b><br>
+        ⭐ XP lost <b>100</b>
+    </p>
+
+    <button
+        id="restoreButton"
+        class="gold"
+        onclick="restoreStreak()"
+    >
+        ♻️ RESTORE STREAK — 250 XP
+    </button>
+
+</section>
+
+
+<!-- =========================
+     QUEST SELECT
+========================= -->
+
+<section class="card">
+
+    <h2>🔓 QUEST SELECT</h2>
+
+    <p>
+        All four quests are unlocked from the beginning.
+        Choose any quest at any time.
+    </p>
+
+    <div class="quest-grid">
+
+        <button
+            id="questBtn1"
+            class="quest-btn active"
+            onclick="selectQuest(1)"
+        >
+            <div class="quest-number">QUEST 001</div>
+            <div class="quest-icon">💧</div>
+            <div class="quest-title">THE DRIP</div>
+            <div>Find water wastage.</div>
+        </button>
+
+
+        <button
+            id="questBtn2"
+            class="quest-btn"
+            onclick="selectQuest(2)"
+        >
+            <div class="quest-number">QUEST 002</div>
+            <div class="quest-icon">⚡</div>
+            <div class="quest-title">THE ENERGY EATER</div>
+            <div>Find unnecessary energy use.</div>
+        </button>
+
+
+        <button
+            id="questBtn3"
+            class="quest-btn"
+            onclick="selectQuest(3)"
+        >
+            <div class="quest-number">QUEST 003</div>
+            <div class="quest-icon">🍱</div>
+            <div class="quest-title">THE VANISHING MEAL</div>
+            <div>Reduce food wastage.</div>
+        </button>
+
+
+        <button
+            id="questBtn4"
+            class="quest-btn"
+            onclick="selectQuest(4)"
+        >
+            <div class="quest-number">QUEST 004</div>
+            <div class="quest-icon">♻️</div>
+            <div class="quest-title">THE GROWING WASTE</div>
+            <div>Search within 50 metres.</div>
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     ACTIVE QUEST
+========================= -->
+
+<section class="card">
+
+    <h2 id="questTitle">💧 THE DRIP</h2>
+
+    <p id="questDescription">
+        SYNORA is searching for a repeating acoustic pattern
+        that may indicate water dripping.
+    </p>
+
+    <div class="signal" id="signalBox">
+
+        <div class="signal-icon" id="signalIcon">
+            📡
+        </div>
+
+        <div id="status">
+            Waiting for detection...
+        </div>
+
+        <div id="signalDetails">
+            Detection uses vibration only.
+        </div>
+
+    </div>
+
+    <br>
+
+    <button
+        class="primary"
+        onclick="startDetection()"
+    >
+        📳 START DETECTION
+    </button>
+
+    <button
+        class="success"
+        onclick="verifyProblem()"
+    >
+        ✅ VERIFY PROBLEM IS FIXED
+    </button>
+
+    <button
+        onclick="demoDetection()"
+    >
+        🧪 DEMO DETECTION
+    </button>
+
+</section>
+
+
+<!-- =========================
+     MAP
+========================= -->
+
+<section class="card">
+
+    <h2>🗺️ SYNORA GPS MAP</h2>
+
+    <p class="map-note">
+        Your real position is shown using GPS.
+        SYNORA does not create a fake target location.
+    </p>
+
+    <div id="map"></div>
+
+    <p id="gpsStatus">
+        GPS: Waiting...
+    </p>
+
+</section>
+
+
+<!-- =========================
+     QUEST RULES
+========================= -->
+
+<section class="card">
+
+    <h2>🎯 SYNORA RULES</h2>
+
+    <p>🔓 All 4 quests are unlocked.</p>
+    <p>🎯 Choose any quest at any time.</p>
+    <p>⭐ First game start gives +100 XP.</p>
+    <p>👤 Changing username creates a fresh 100 XP / Day 1 profile.</p>
+    <p>📳 Detection uses buzz/vibration only.</p>
+    <p>🧊 Absent days can be manually protected.</p>
+    <p>🔥 The next day after an absence is a fresh active day.</p>
+    <p>💥 Missing an active day causes Game Over.</p>
+    <p>⭐ Game Over removes 100 XP.</p>
+    <p>♻️ Previous streak can be restored for 250 XP.</p>
+    <p>🌌 Every quest has its own background.</p>
+
+</section>
+
+</main>
+
+
+<div id="toast"></div>
+
+
+<!-- Leaflet -->
+<script
+src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+</script>
+
+
+<script>
+
+/* =====================================================
+   SYNORA DATA
+===================================================== */
+
+const STORAGE_KEY = "synoraData_v3";
+
+/* =====================================================
+   IOT DEVICE CONNECTION
+   Keep false until a real IoT device is connected.
+===================================================== */
+const iotConnected = false;
+
+let data = JSON.parse(
+    localStorage.getItem(STORAGE_KEY)
+) || {
+
+    username: "Hunter",
+
+    xp: 0,
+
+    streak: 0,
+
+    lastActiveDate: null,
+
+    firstStartRewardClaimed: false,
+
+    freezeDays: [],
+
+    previousStreak: 0,
+
+    gameOver: false,
+
+    questsCompleted: {},
+
+    selectedQuest: 1
+};
+
+
+/* =====================================================
+   QUEST INFORMATION
+===================================================== */
+
+const quests = {
+
+    1: {
+        title: "💧 THE DRIP",
+        description:
+        "SYNORA is searching for a repeating acoustic pattern that may indicate water dripping.",
+        bodyClass: "quest1"
+    },
+
+    2: {
+        title: "⚡ THE ENERGY EATER",
+        description:
+        "Find a repeated situation where energy is being unnecessarily used.",
+        bodyClass: "quest2"
+    },
+
+    3: {
+        title: "🍱 THE VANISHING MEAL",
+        description:
+        "SYNORA helps you identify and reduce your own food-waste events.",
+        bodyClass: "quest3"
+    },
+
+    4: {
+        title: "♻️ THE GROWING WASTE",
+        description:
+        "WASTE HUNT searches the local area within approximately 50 metres.",
+        bodyClass: "quest4"
+    }
+
+};
+
+
+/* =====================================================
+   SAVE
+===================================================== */
+
+function saveData() {
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(data)
+    );
+
+}
+
+
+/* =====================================================
+   TODAY
+===================================================== */
+
+function todayString() {
+
+    const d = new Date();
+
+    const y = d.getFullYear();
+
+    const m = String(
+        d.getMonth() + 1
+    ).padStart(2, "0");
+
+    const day = String(
+        d.getDate()
+    ).padStart(2, "0");
+
+    return `${y}-${m}-${day}`;
+
+}
+
+
+/* =====================================================
+   DATE DIFFERENCE
+===================================================== */
+
+function dateDifference(date1, date2) {
+
+    const a = new Date(date1 + "T00:00:00");
+
+    const b = new Date(date2 + "T00:00:00");
+
+    return Math.round(
+        (b - a) / 86400000
+    );
+
+}
+
+
+/* =====================================================
+   INITIAL GAME START
+===================================================== */
+
+function firstGameStart() {
+
+    if (!data.firstStartRewardClaimed) {
+
+        data.xp += 100;
+
+        data.streak = 1;
+
+        data.lastActiveDate = todayString();
+
+        data.firstStartRewardClaimed = true;
+
+        showToast(
+            "🎮 GAME STARTED — +100 XP!"
+        );
+
+        saveData();
+
+    }
+
+}
+
+
+/* =====================================================
+   USERNAME CHANGE
+===================================================== */
+
+function saveUsername() {
+
+    const input =
+        document.getElementById("usernameInput");
+
+    const newName =
+        input.value.trim();
+
+    if (!newName) {
+
+        showToast(
+            "Please enter a username."
+        );
+
+        return;
+
+    }
+
+    if (newName === data.username) {
+
+        showToast(
+            "That is already your username."
+        );
+
+        return;
+
+    }
+
+
+    /*
+       NEW PROFILE RULE
+
+       Old XP = deleted
+       Old streak = deleted
+
+       New profile:
+       XP = 100
+       Streak = Day 1
+
+       All quests remain unlocked.
+    */
+
+    data.username = newName;
+
+    data.xp = 100;
+
+    data.streak = 1;
+
+    data.lastActiveDate =
+        todayString();
+
+    data.freezeDays = [];
+
+    data.previousStreak = 0;
+
+    data.gameOver = false;
+
+    data.questsCompleted = {};
+
+    /*
+       Keep all quests unlocked.
+    */
+
+    data.selectedQuest = 1;
+
+    saveData();
+
+    updateUI();
+
+    showToast(
+        "👤 Username changed — 100 XP + Day 1!"
+    );
+
+}
+
+
+/* =====================================================
+   STREAK CHECK
+===================================================== */
+
+function checkStreak() {
+
+    if (!data.lastActiveDate) {
+
+        data.streak = 1;
+
+        data.lastActiveDate =
+            todayString();
+
+        saveData();
+
+        return;
+
+    }
+
+    const today =
+        todayString();
+
+    const difference =
+        dateDifference(
+            data.lastActiveDate,
+            today
+        );
+
+
+    /*
+       Same day
+    */
+
+    if (difference <= 0) {
+
+        return;
+
+    }
+
+
+    /*
+       If there are days between
+       the last active day and today,
+       inspect them.
+    */
+
+    for (
+        let i = 1;
+        i < difference;
+        i++
+    ) {
+
+        const missedDate =
+            addDays(
+                data.lastActiveDate,
+                i
+            );
+
+        /*
+           Protected absent day:
+           nothing happens.
+        */
+
+        if (
+            data.freezeDays.includes(
+                missedDate
+            )
+        ) {
+
+            continue;
+
+        }
+
+
+        /*
+           Unprotected missed day
+           = GAME OVER
+        */
+
+        triggerGameOver();
+
+        return;
+
+    }
+
+
+    /*
+       Today itself is the next active day.
+       We DO NOT automatically increase
+       the streak just because the page
+       was opened.
+
+       The user must actually start the game.
+    */
+
+}
+
+
+/* =====================================================
+   ADD DAYS
+===================================================== */
+
+function addDays(dateString, amount) {
+
+    const d =
+        new Date(
+            dateString + "T00:00:00"
+        );
+
+    d.setDate(
+        d.getDate() + amount
+    );
+
+    const y =
+        d.getFullYear();
+
+    const m =
+        String(
+            d.getMonth() + 1
+        ).padStart(2, "0");
+
+    const day =
+        String(
+            d.getDate()
+        ).padStart(2, "0");
+
+    return `${y}-${m}-${day}`;
+
+}
+
+
+/* =====================================================
+   ADD FREEZE DAY
+===================================================== */
+
+function addFreezeDay() {
+
+    const input =
+        document.getElementById(
+            "freezeDate"
+        );
+
+    const date =
+        input.value;
+
+    if (!date) {
+
+        showToast(
+            "Choose an absent date first."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        data.freezeDays.includes(date)
+    ) {
+
+        showToast(
+            "That day is already protected."
+        );
+
+        return;
+
+    }
+
+
+    /*
+       Don't allow future dates.
+    */
+
+    if (
+        date > todayString()
+    ) {
+
+        showToast(
+            "You cannot protect a future day."
+        );
+
+        return;
+
+    }
+
+
+    data.freezeDays.push(date);
+
+    data.freezeDays.sort();
+
+    saveData();
+
+    updateUI();
+
+    showToast(
+        "🧊 Absent day protected!"
+    );
+
+}
+
+
+/* =====================================================
+   REMOVE FREEZE DAY
+===================================================== */
+
+function removeFreezeDay(date) {
+
+    data.freezeDays =
+        data.freezeDays.filter(
+            d => d !== date
+        );
+
+    saveData();
+
+    updateUI();
+
+}
+
+
+/* =====================================================
+   GAME OVER
+===================================================== */
+
+function triggerGameOver() {
+
+    if (data.gameOver) {
+
+        return;
+
+    }
+
+    data.previousStreak =
+        data.streak;
+
+    data.streak = 0;
+
+    data.xp =
+        Math.max(
+            0,
+            data.xp - 100
+        );
+
+    data.gameOver = true;
+
+    saveData();
+
+    updateUI();
+
+    showToast(
+        "💥 GAME OVER — 100 XP lost."
+    );
+
+}
+
+
+/* =====================================================
+   RESTORE STREAK
+===================================================== */
+
+function restoreStreak() {
+
+    if (!data.gameOver) {
+
+        showToast(
+            "Your streak is still active."
+        );
+
+        return;
+
+    }
+
+
+    if (data.xp < 250) {
+
+        showToast(
+            "You need 250 XP to restore your streak."
+        );
+
+        return;
+
+    }
+
+
+    data.xp -= 250;
+
+    data.streak =
+        data.previousStreak;
+
+    data.gameOver = false;
+
+    data.lastActiveDate =
+        todayString();
+
+    saveData();
+
+    updateUI();
+
+    showToast(
+        "♻️ STREAK RESTORED!"
+    );
+
+}
+
+
+/* =====================================================
+   START TODAY'S GAME
+===================================================== */
+
+function startToday() {
+
+    if (data.gameOver) {
+
+        showToast(
+            "💥 Game Over — restore your streak first."
+        );
+
+        return;
+
+    }
+
+
+    const today =
+        todayString();
+
+
+    /*
+       First ever start
+    */
+
+    if (
+        !data.lastActiveDate
+    ) {
+
+        data.streak = 1;
+
+        data.lastActiveDate =
+            today;
+
+        saveData();
+
+        updateUI();
+
+        return;
+
+    }
+
+
+    /*
+       Already active today
+    */
+
+    if (
+        data.lastActiveDate === today
+    ) {
+
+        showToast(
+            "🔥 Today's game is already active."
+        );
+
+        return;
+
+    }
+
+
+    const difference =
+        dateDifference(
+            data.lastActiveDate,
+            today
+        );
+
+
+    /*
+       Check the days between
+       last active day and today.
+    */
+
+    for (
+        let i = 1;
+        i < difference;
+        i++
+    ) {
+
+        const missedDate =
+            addDays(
+                data.lastActiveDate,
+                i
+            );
+
+        if (
+            !data.freezeDays.includes(
+                missedDate
+            )
+        ) {
+
+            triggerGameOver();
+
+            return;
+
+        }
+
+    }
+
+
+    /*
+       Today is a fresh active day.
+    */
+
+    data.streak += 1;
+
+    data.lastActiveDate =
+        today;
+
+    saveData();
+
+    updateUI();
+
+    showToast(
+        `🔥 Day ${data.streak} started!`
+    );
+
+}
+
+
+/* =====================================================
+   QUEST SELECTION
+===================================================== */
+
+function selectQuest(number) {
+
+    /*
+       ALL QUESTS ARE ALWAYS UNLOCKED.
+    */
+
+    data.selectedQuest =
+        number;
+
+    saveData();
+
+    document.body.className =
+        quests[number].bodyClass;
+
+
+    document.getElementById(
+        "questTitle"
+    ).textContent =
+        quests[number].title;
+
+
+    document.getElementById(
+        "questDescription"
+    ).textContent =
+        quests[number].description;
+
+
+    for (
+        let i = 1;
+        i <= 4;
+        i++
+    ) {
+
+        document
+            .getElementById(
+                "questBtn" + i
+            )
+            .classList.toggle(
+                "active",
+                i === number
+            );
+
+    }
+
+
+    resetDetectionUI();
+
+    showToast(
+        `🎯 Quest ${number} selected`
+    );
+
+}
+
+
+/* =====================================================
+   BUZZ
+===================================================== */
+
+function buzz() {
+
+    if (
+        "vibrate" in navigator
+    ) {
+
+        navigator.vibrate([
+            150,
+            100,
+            250
+        ]);
+
+    }
+
+}
+
+
+/* =====================================================
+   DETECTION
+===================================================== */
+
+let detecting = false;
+
+let audioContext = null;
+
+let analyser = null;
+
+let microphoneSource = null;
+
+let microphoneStream = null;
+
+let detectionInterval = null;
+
+
+/* =====================================================
+   START DETECTION
+===================================================== */
+
+async function startDetection() {
+
+    if (!iotConnected) {
+        showToast("📡 NO CONNECTION TO DEVICE — no real detection and no XP.");
+        return;
+    }
+
+    const quest =
+        data.selectedQuest;
+
+
+    /*
+       QUEST 4
+    */
+
+    if (quest === 4) {
+
+        startWasteHunt();
+
+        return;
+
+    }
+
+
+    /*
+       QUEST 3
+    */
+
+    if (quest === 3) {
+
+        showToast(
+            "🍱 Food-waste monitoring started."
+        );
+
+        setDetected(
+            "Food-waste event detected."
+        );
+
+        return;
+
+    }
+
+
+    /*
+       QUEST 2
+    */
+
+    if (quest === 2) {
+
+        showToast(
+            "⚡ Energy investigation started."
+        );
+
+        setDetected(
+            "Possible energy-waste pattern detected."
+        );
+
+        return;
+
+    }
+
+
+    /*
+       QUEST 1
+       Microphone acoustic detection
+    */
+
+    if (
+        !navigator.mediaDevices ||
+        !navigator.mediaDevices.getUserMedia
+    ) {
+
+        showToast(
+            "Microphone access is not supported here."
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        microphoneStream =
+            await navigator.mediaDevices.getUserMedia({
+                audio: true
+            });
+
+
+        audioContext =
+            new (
+                window.AudioContext ||
+                window.webkitAudioContext
+            )();
+
+
+        analyser =
+            audioContext.createAnalyser();
+
+        analyser.fftSize = 2048;
+
+        microphoneSource =
+            audioContext.createMediaStreamSource(
+                microphoneStream
+            );
+
+        microphoneSource.connect(
+            analyser
+        );
+
+
+        detecting = true;
+
+        document.getElementById(
+            "status"
+        ).textContent =
+            "🎧 Listening for repeating acoustic patterns...";
+
+
+        detectionInterval =
+            setInterval(
+                analyseMicrophone,
+                400
+            );
+
+
+        showToast(
+            "📳 Acoustic detection started."
+        );
+
+    }
+    catch(error) {
+
+        showToast(
+            "Microphone permission was denied."
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   MICROPHONE ANALYSIS
+===================================================== */
+
+let previousLevel = 0;
+
+function analyseMicrophone() {
+
+    if (!analyser) {
+
+        return;
+
+    }
+
+    const dataArray =
+        new Uint8Array(
+            analyser.fftSize
+        );
+
+    analyser.getByteTimeDomainData(
+        dataArray
+    );
+
+
+    let sum = 0;
+
+    for (
+        let i = 0;
+        i < dataArray.length;
+        i++
+    ) {
+
+        const value =
+            (dataArray[i] - 128) / 128;
+
+        sum += value * value;
+
+    }
+
+
+    const rms =
+        Math.sqrt(
+            sum / dataArray.length
+        );
+
+
+    const level =
+        Math.round(
+            rms * 1000
+        );
+
+
+    /*
+       This is an acoustic activity detector,
+       not a guaranteed water-leak classifier.
+    */
+
+    if (
+        level > 45 &&
+        Math.abs(
+            level - previousLevel
+        ) > 8
+    ) {
+
+        setDetected(
+            "Repeating acoustic signal detected."
+        );
+
+    }
+
+
+    previousLevel = level;
+
+}
+
+
+/* =====================================================
+   DEMO DETECTION
+===================================================== */
+
+function demoDetection() {
+
+    if (!iotConnected) {
+        showToast("📡 NO CONNECTION TO DEVICE — demo detection is disabled.");
+        return;
+    }
+
+    setDetected(
+        "I FOUND SOMETHING — investigate the area."
+    );
+
+}
+
+
+/* =====================================================
+   SET DETECTED
+===================================================== */
+
+function setDetected(message) {
+
+    if (!iotConnected) {
+        showToast("📡 NO CONNECTION TO DEVICE — detection blocked.");
+        return;
+    }
+
+    buzz();
+
+    const box =
+        document.getElementById(
+            "signalBox"
+        );
+
+    box.classList.add(
+        "detected"
+    );
+
+
+    document.getElementById(
+        "signalIcon"
+    ).textContent =
+        "⚠️";
+
+
+    document.getElementById(
+        "status"
+    ).textContent =
+        message;
+
+
+    document.getElementById(
+        "signalDetails"
+    ).innerHTML =
+        "📳 BUZZ DETECTION • Move around and investigate.";
+
+}
+
+
+/* =====================================================
+   RESET DETECTION
+===================================================== */
+
+function resetDetectionUI() {
+
+    const box =
+        document.getElementById(
+            "signalBox"
+        );
+
+    box.classList.remove(
+        "detected"
+    );
+
+
+    document.getElementById(
+        "signalIcon"
+    ).textContent =
+        "📡";
+
+
+    document.getElementById(
+        "status"
+    ).textContent =
+        "Waiting for detection...";
+
+
+    document.getElementById(
+        "signalDetails"
+    ).textContent =
+        "Detection uses vibration only.";
+
+}
+
+
+/* =====================================================
+   VERIFY PROBLEM
+===================================================== */
+
+function verifyProblem() {
+
+    if (!iotConnected) {
+        showToast("📡 NO CONNECTION TO DEVICE — XP cannot be earned.");
+        return;
+    }
+
+    const quest =
+        data.selectedQuest;
+
+
+    if (
+        data.questsCompleted[quest]
+    ) {
+
+        showToast(
+            "This quest has already been completed."
+        );
+
+        return;
+
+    }
+
+
+    /*
+       In the real prototype,
+       this should be replaced by
+       actual re-detection / verification.
+    */
+
+    data.questsCompleted[quest] =
+        true;
+
+    data.xp += 100;
+
+    saveData();
+
+    resetDetectionUI();
+
+    showToast(
+        "✅ PROBLEM DEFEATED — +100 XP!"
+    );
+
+    updateUI();
+
+}
+
+
+/* =====================================================
+   WASTE HUNT
+===================================================== */
+
+let wasteCircle = null;
+
+function startWasteHunt() {
+
+    if (!iotConnected) {
+        showToast("📡 NO CONNECTION TO DEVICE — no waste detection or XP.");
+        return;
+    }
+
+    if (!userMarker) {
+
+        showToast(
+            "Waiting for GPS location..."
+        );
+
+        locateUser();
+
+        return;
+
+    }
+
+
+    if (wasteCircle) {
+
+        map.removeLayer(
+            wasteCircle
+        );
+
+    }
+
+
+    wasteCircle =
+        L.circle(
+            userMarker.getLatLng(),
+            {
+                radius: 50
+            }
+        ).addTo(map);
+
+
+    map.fitBounds(
+        wasteCircle.getBounds()
+    );
+
+
+    buzz();
+
+
+    document.getElementById(
+        "status"
+    ).textContent =
+        "♻️ WASTE HUNT ACTIVATED — Searching within 50 m.";
+
+
+    document.getElementById(
+        "signalDetails"
+    ).textContent =
+        "Move through the area and investigate recurring waste.";
+
+}
+
+
+/* =====================================================
+   GPS MAP
+===================================================== */
+
+let map = null;
+
+let userMarker = null;
+
+function setupMap() {
+
+    map =
+        L.map("map").setView(
+            [20.5937, 78.9629],
+            5
+        );
+
+
+    L.tileLayer(
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+            maxZoom: 19,
+            attribution:
+            "&copy; OpenStreetMap contributors"
+        }
+    ).addTo(map);
+
+
+    locateUser();
+
+}
+
+
+/* =====================================================
+   LOCATE USER
+===================================================== */
+
+function locateUser() {
+
+    if (
+        !navigator.geolocation
+    ) {
+
+        document.getElementById(
+            "gpsStatus"
+        ).textContent =
+            "GPS is not supported.";
+
+        return;
+
+    }
+
+
+    navigator.geolocation.watchPosition(
+
+        function(position) {
+
+            const lat =
+                position.coords.latitude;
+
+            const lon =
+                position.coords.longitude;
+
+
+            if (!userMarker) {
+
+                userMarker =
+                    L.marker(
+                        [lat, lon]
+                    )
+                    .addTo(map)
+                    .bindPopup(
+                        "📍 You are here"
+                    );
+
+
+                map.setView(
+                    [lat, lon],
+                    17
+                );
+
+            }
+            else {
+
+                userMarker.setLatLng(
+                    [lat, lon]
+                );
+
+            }
+
+
+            document.getElementById(
+                "gpsStatus"
+            ).textContent =
+                `GPS: ${lat.toFixed(6)}, ${lon.toFixed(6)}`;
+
+        },
+
+        function(error) {
+
+            document.getElementById(
+                "gpsStatus"
+            ).textContent =
+                "GPS permission is required.";
+
+        },
+
+        {
+            enableHighAccuracy: true,
+            maximumAge: 5000,
+            timeout: 10000
+        }
+
+    );
+
+}
+
+
+/* =====================================================
+   UPDATE FREEZE LIST
+===================================================== */
+
+function updateFreezeList() {
+
+    const container =
+        document.getElementById(
+            "freezeList"
+        );
+
+    container.innerHTML = "";
+
+
+    if (
+        data.freezeDays.length === 0
+    ) {
+
+        container.innerHTML =
+            "<span>No absent days added.</span>";
+
+        return;
+
+    }
+
+
+    data.freezeDays.forEach(
+        date => {
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+            div.className =
+                "freeze-day";
+
+            div.innerHTML = `
+                🧊 ${date}
+                <button
+                    onclick="removeFreezeDay('${date}')"
+                >
+                    ×
+                </button>
+            `;
+
+            container.appendChild(
+                div
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   UPDATE UI
+===================================================== */
+
+function updateUI() {
+
+    const iotStatus = document.getElementById("iotStatus");
+    if (iotStatus) {
+        iotStatus.textContent = iotConnected
+            ? "🟢 DEVICE CONNECTED"
+            : "🔴 NO CONNECTION TO DEVICE";
+    }
+
+    document.getElementById(
+        "xp"
+    ).textContent =
+        data.xp;
+
+
+    document.getElementById(
+        "xpBig"
+    ).textContent =
+        data.xp;
+
+
+    document.getElementById(
+        "streak"
+    ).textContent =
+        data.streak;
+
+
+    document.getElementById(
+        "streakBig"
+    ).textContent =
+        data.streak;
+
+
+    document.getElementById(
+        "usernameTop"
+    ).textContent =
+        data.username;
+
+
+    document.getElementById(
+        "usernameInput"
+    ).value =
+        data.username;
+
+
+    document.getElementById(
+        "freezeCount"
+    ).textContent =
+        data.freezeDays.length;
+
+
+    updateFreezeList();
+
+
+    /*
+       Game Over panel
+    */
+
+    const gameOver =
+        document.getElementById(
+            "gameOver"
+        );
+
+    gameOver.style.display =
+        data.gameOver
+            ? "block"
+            : "none";
+
+
+    /*
+       Current quest
+    */
+
+    document.body.className =
+        quests[
+            data.selectedQuest
+        ].bodyClass;
+
+
+    for (
+        let i = 1;
+        i <= 4;
+        i++
+    ) {
+
+        document
+            .getElementById(
+                "questBtn" + i
+            )
+            .classList.toggle(
+                "active",
+                i === data.selectedQuest
+            );
+
+    }
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+let toastTimer = null;
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+    toast.textContent =
+        message;
+
+    toast.style.display =
+        "block";
+
+
+    clearTimeout(
+        toastTimer
+    );
+
+
+    toastTimer =
+        setTimeout(
+            () => {
+
+                toast.style.display =
+                    "none";
+
+            },
+            3000
+        );
+
+}
+
+
+/* =====================================================
+   STARTUP
+===================================================== */
+
+firstGameStart();
+
+updateUI();
+
+setupMap();
+
+/*
+   Check whether a previous active day
+   was missed.
+*/
+
+checkStreak();
+
+
+/*
+   The user must explicitly start
+   today's active streak.
+*/
+
+document.addEventListener(
+    "visibilitychange",
+    function() {
+
+        /*
+           No sound.
+           No voice.
+           Only vibration is used
+           by detection.
+        */
+
+    }
+);
+
+</script>
+
+</body>
+</html>
+```
